@@ -12,13 +12,16 @@ class User(AbstractUser):
         ('not-specified', 'Not-specified'),
     )
 
+    profile_image = models.ImageField(null=True)
     name = models.CharField(_("Name of User"), blank=True, max_length=255)
     website = models.URLField(null=True)
     bio = models.TextField(null=True)
     phone = models.CharField(max_length=140, null=True)
     gender = models.CharField(max_length=80, choices=GENDER_CHOICES, null=True)
-    followers = models.ManyToManyField('self')   # symmetrical=False
-    following = models.ManyToManyField('self')   # symmetrical=False
+    followers = models.ManyToManyField('self', symmetrical=False,
+                                       related_name='user_following', blank=True)   # symmetrical=False
+    following = models.ManyToManyField('self', symmetrical=False,
+                                       related_name='user_followers', blank=True)   # symmetrical=False
 
     def __str__(self):
         return self.username
