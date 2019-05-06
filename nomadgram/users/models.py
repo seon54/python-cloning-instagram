@@ -18,10 +18,8 @@ class User(AbstractUser):
     bio = models.TextField(null=True)
     phone = models.CharField(max_length=140, null=True)
     gender = models.CharField(max_length=80, choices=GENDER_CHOICES, null=True)
-    followers = models.ManyToManyField('self', symmetrical=False,
-                                       related_name='user_following', blank=True)   # symmetrical=False
-    following = models.ManyToManyField('self', symmetrical=False,
-                                       related_name='user_followers', blank=True)   # symmetrical=False
+    followers = models.ManyToManyField('self', related_name='user_following', symmetrical=False, blank=True)
+    following = models.ManyToManyField('self', related_name='user_followers', symmetrical=False, blank=True)
 
     def __str__(self):
         return self.username
