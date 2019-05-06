@@ -7,6 +7,10 @@ class TimeStampedModel(models.Model):
     created_at = models.DateTimeField(auto_now_add=True)
     updated_at = models.DateTimeField(auto_now=True)
 
+    '''
+    abstract = True 일 경우, abstract base class가 되며 
+    데이터베이스를 만들기 위해 사용되지 않고 다른 모델을 위한 base가 된다.
+    '''
     class Meta:
         abstract = True
 
