@@ -3,19 +3,35 @@ from . import models
 from nomadgram.users import models as user_model
 
 
+class UserProfileImageSerializer(serializers.ModelSerializer):
+
+    class Meta:
+        model = models.Image
+        fields = (
+            'id',
+            'file',
+            'like_count',
+            'comment_count',
+        )
+
+
 class FeedUserSerializer(serializers.ModelSerializer):
 
     class Meta:
         model = user_model.User
         fields = (
             'username',
-            'profile_image'
+            'profile_image',
+            'name',
+            'bio',
+            'website',
+            
         )
 
 
 class CommentSerializer(serializers.ModelSerializer):
 
-    creator = FeedUserSerializer()
+    creator = FeedUserSerializer(read_only=True)    # read_only=True 변경불가
 
     class Meta:
         model = models.Comment
