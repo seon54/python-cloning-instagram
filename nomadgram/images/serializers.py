@@ -13,15 +13,15 @@ class SmallImageSerializer(serializers.ModelSerializer):
         )        
 
 
-class UserProfileImageSerializer(serializers.ModelSerializer):
+class CountImageSerializer(serializers.ModelSerializer):
 
     class Meta:
         model = models.Image
         fields = (
             'id',
             'file',
-            'like_count',
             'comment_count',
+            'like_count',
         )
 
 
@@ -35,6 +35,9 @@ class FeedUserSerializer(serializers.ModelSerializer):
             'name',
             'bio',
             'website',
+            'post_count',
+            'followers_count',
+            'following_count',
             
         )
 
@@ -74,4 +77,16 @@ class ImageSerializer(serializers.ModelSerializer):
             'comments',
             'like_count',
             'creator',
+            'created_at',
+        )
+
+
+class InputImageSerializer(serializers.ModelSerializer):
+
+    class Meta:
+        model = models.Image
+        fields = (
+            'file',
+            'location',
+            'caption',
         )
