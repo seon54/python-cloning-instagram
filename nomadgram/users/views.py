@@ -1,6 +1,8 @@
 from rest_framework.views import APIView
 from rest_framework.response import Response
 from rest_framework import status
+from allauth.socialaccount.providers.facebook.views import FacebookOAuth2Adapter
+from rest_auth.registration.views import SocialLoginView
 from . import models, serializers
 from nomadgram.notifications import views as notification_views
 
@@ -139,31 +141,37 @@ class ChangePassword(APIView):
 
     def put(self, request, username, format=None):
         user = request.user
-        current_password = request.data.get('current_password', None)
         
-        if current_password is not None:
-            passwords_match = user.check_password(current_password)
+        if user.name == username:
+            current_password = request.data.get('current_password', None)
 
-            if passwords_match:
-                new_password = request.data.get('new_password', None)
+            if current_password is not None:
+                passwords_match = user.check_password(current_password)
 
-                if new_password is not None:
-                    user.set_password(new_password)
-                    user.save()
+                if passwords_match:
+                    new_password = request.data.get('new_password', None)
 
-                    return Response(status=status.HTTP_200_OK)
+                    if new_password is not None:
+                        user.set_password(new_password)
+                        user.save()
+
+                        return Response(status=status.HTTP_200_OK)
+
+                    else:
+                        return Response(status=status.HTTP_400_BAD_REQUEST)
 
                 else:
                     return Response(status=status.HTTP_400_BAD_REQUEST)
 
             else:
-                return Response(status=status.HTTP_400_BAD_REQUEST)
+                    return Response(status=status.HTTP_400_BAD_REQUEST)
 
         else:
-                return Response(status=status.HTTP_400_BAD_REQUEST)
+            return Response(status=status.HTTP_401_UNAUTHORIZED)
 
 
-
+class FacebookLogin(SocialLoginView):
+    adapter_class = FacebookOAuth2Adapter
 
 
 

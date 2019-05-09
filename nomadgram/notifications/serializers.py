@@ -1,4 +1,6 @@
 from rest_framework import serializers
+from taggit_serializer.serializers import (TagListSerializerField,
+                                           TaggitSerializer)
 from . import models
 from nomadgram.users import serializers as user_serializers
 from nomadgram.images import serializers as image_serializers
