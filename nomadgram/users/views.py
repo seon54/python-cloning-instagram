@@ -62,7 +62,7 @@ class UserProfile(APIView):
 
     def get(self, request, username, format=None):
         found_user = self.get_user(username)
-
+        print('** found_user : ', found_user)
         if found_user is None:
             return Response(status=status.HTTP_404_NOT_FOUND)
 
@@ -74,7 +74,7 @@ class UserProfile(APIView):
         user = request.user     # 페이지를 요청하는 user
 
         found_user = self.get_user(username)    # username으로 찾은 user
-
+        
         if found_user is None:
             return Response(status=status.HTTP_404_NOT_FOUND)
 

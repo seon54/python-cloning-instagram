@@ -18,6 +18,7 @@ class UserProfileImageSerializer(serializers.ModelSerializer):
             'profile_image',
             'username',
             'name',
+            'gender',
             'bio',
             'website',
             'post_count',
