@@ -3,10 +3,17 @@ from rest_framework.serializers import ModelSerializer
 from .models import *
 
 
+class UserProfileImageSerializer(ModelSerializer):
+
+    class Meta:
+        model = Image
+        fields = ('id', 'file', 'comment_count', 'like_count',)
+
+
 class FeedUserSerializer(ModelSerializer):
     class Meta:
         model = User
-        fields = ('username', 'profile_image')
+        fields = ('username', 'profile_image',)
 
 
 class CommentSerializer(ModelSerializer):

@@ -24,3 +24,15 @@ class User(AbstractUser):
 
     def get_absolute_url(self):
         return reverse("users:detail", kwargs={"username": self.username})
+
+    @property
+    def post_count(self):
+        return self.images.all().count()
+
+    @property
+    def followers_count(self):
+        return self.followers.all().count()
+
+    @property
+    def following_count(self):
+        return self.following.all().count()
