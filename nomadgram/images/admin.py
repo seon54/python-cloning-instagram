@@ -5,7 +5,7 @@ from nomadgram.images.models import *
 
 @admin.register(Image)
 class ImageAdmin(admin.ModelAdmin):
-    search_fields = ['location', 'creator__name', 'file']
+    search_fields = ['location', 'creator__name', 'file', 'tags']
     list_filter = ('location', )
     list_display_links = ('location','caption',)
     list_display = (

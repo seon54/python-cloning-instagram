@@ -3,7 +3,7 @@ from rest_framework.serializers import ModelSerializer
 from .models import *
 
 
-class UserProfileImageSerializer(ModelSerializer):
+class CountImageSerializer(ModelSerializer):
 
     class Meta:
         model = Image
